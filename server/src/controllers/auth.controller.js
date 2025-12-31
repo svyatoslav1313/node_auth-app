@@ -6,6 +6,7 @@ import { jwtService } from '../services/jwt.service.js';
 import { tokenService } from '../services/token.service.js';
 import { userService } from '../services/user.service.js';
 import bcrypt from 'bcrypt';
+import { Op } from 'sequelize';
 
 const ACTIVATED_STATUS = 'activated';
 
@@ -50,6 +51,10 @@ const login = async (req, res) => {
 
   if (!user) {
     throw ApiError.badRequest('No such user');
+  }
+
+  if (user.activationToken !== ACTIVATED_STATUS) {
+    throw ApiError.badRequest('Please activate your account');
   }
 
   const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -156,6 +161,45 @@ const resetPassword = async (req, res) => {
   res.sendStatus(200);
 };
 
+const changeEmail = async (req, res) => {
+  const { securityToken } = req.body;
+
+  const tokendata = await Token.findOne({
+    where: {
+      securityToken,
+      securityExpiresAt: {
+        [Op.gt]: new Date(),
+      },
+    },
+    include: User,
+  });
+
+  if (!tokendata) {
+    throw ApiError.badRequest('No such token');
+  }
+
+  const user = tokendata.user;
+
+  if (!user) {
+    throw ApiError.badRequest('No such user');
+  }
+
+  const oldEmail = tokendata.oldEmail;
+
+  user.email = oldEmail;
+  user.activationToken = ACTIVATED_STATUS;
+  await user.save();
+
+  tokendata.refreshToken = null;
+  tokendata.securityToken = null;
+  tokendata.oldEmail = null;
+  await tokendata.save();
+
+  res.send({
+    message: 'Access has been restored, please change your password.',
+  });
+};
+
 export const authController = {
   register,
   activate,
@@ -164,4 +208,5 @@ export const authController = {
   logout,
   forgotPassword,
   resetPassword,
+  changeEmail,
 };

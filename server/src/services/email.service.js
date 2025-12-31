@@ -48,8 +48,23 @@ function sendResetEmail(email, token) {
   });
 }
 
+function sendSecurityEmail(email, token) {
+  const href = `${process.env.CLIENT_HOST}/change-email/${token}`;
+  const html = `
+  <h1>Security Alert: Your email has been changed.</h1>
+  <p>Hello! Your email address on [Name] has been successfully changed. Wasn't that you? If you didn't change your address, your account may have been hacked. Please follow this link immediately to undo the changes and protect your profile: <a href="${href}">${href}</a></p>
+  `;
+
+  return send({
+    email,
+    subject: 'Security Alert: Your email has been changed.',
+    html,
+  });
+}
+
 export const emailService = {
   sendActivationEmail,
   send,
   sendResetEmail,
+  sendSecurityEmail,
 };

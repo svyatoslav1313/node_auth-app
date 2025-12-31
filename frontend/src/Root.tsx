@@ -8,6 +8,8 @@ import { ActivationPage } from "./Pages/ActivationPage";
 import { RequireNonAuth } from "./components/RequireNonAuth";
 import { ForgotPassPage } from "./Pages/ForgotPassPage";
 import { ResetPassPage } from "./Pages/ResetPassPage";
+import { ResetEmailPage } from "./Pages/ResetEmailPage/ResetEmailPage";
+import { NotFoundPage } from "./Pages/NotFoundPage";
 
 export const Root = () => (
   <BrowserRouter>
@@ -23,6 +25,8 @@ export const Root = () => (
           <Route path="forgot-pass" element={<ForgotPassPage />} />
           <Route path="reset-password/:resetToken" element={<ResetPassPage />} />
         </Route>
+        <Route path="change-email/:securityToken" element={<ResetEmailPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   </BrowserRouter>

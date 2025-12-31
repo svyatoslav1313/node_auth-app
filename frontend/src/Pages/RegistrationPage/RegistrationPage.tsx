@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './RegistrationPage.scss';
 import { User, Mail, Lock, Eye, EyeOff, CheckCircle, LoaderCircle } from 'lucide-react'
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { authService } from '../../services/authService';
 
 export const RegistrationPage = () => {
@@ -68,7 +68,7 @@ export const RegistrationPage = () => {
                 type="text"
                 id="name"
                 name="name"
-                placeholder="Иван Иванов"
+                placeholder="Alex"
                 value={formData.name}
                 onChange={handleChange}
               />
@@ -121,23 +121,23 @@ export const RegistrationPage = () => {
 
           {/* Список требований к паролю */}
           <div className="password-requirements">
-            <p className="password-requirements__title">Требования к паролю:</p>
+            <p className="password-requirements__title">Password requirements:</p>
             <ul className="password-requirements__list">
               <li className={`password-requirements__item ${rules.length ? 'password-requirements__item--valid' : ''}`}>
                 <span className="password-requirements__icon"></span>
-                {rules.length && <CheckCircle size={12} />} Минимум 8 символов
+                {rules.length && <CheckCircle size={12} />} At least 8 characters
               </li>
               <li className={`password-requirements__item ${rules.upper ? 'password-requirements__item--valid' : ''}`}>
                 <span className="password-requirements__icon"></span>
-                {rules.upper && <CheckCircle size={12} />} Заглавная буква
+                {rules.upper && <CheckCircle size={12} />} Uppercase letter
               </li>
               <li className={`password-requirements__item ${rules.number ? 'password-requirements__item--valid' : ''}`}>
                 <span className="password-requirements__icon"></span>
-                {rules.number && <CheckCircle size={12} />} Цифра
+                {rules.number && <CheckCircle size={12} />} A number
               </li>
               <li className={`password-requirements__item ${rules.special ? 'password-requirements__item--valid' : ''}`}>
                 <span className="password-requirements__icon"></span>
-                {rules.special && <CheckCircle size={12} />} Спецсимвол (!@#$)
+                {rules.special && <CheckCircle size={12} />} Special character (!@#$)
               </li>
             </ul>
           </div>
@@ -149,7 +149,7 @@ export const RegistrationPage = () => {
           >
             {loading
               ? <LoaderCircle className='auth-form__loader' />
-              : 'Зарегистрироваться'
+              : 'Sign Up'
             }
           </button>
           {serverResponse && serverResponse}
@@ -157,13 +157,13 @@ export const RegistrationPage = () => {
         </form>
 
         <footer className="auth-card__footer">
-          Уже есть аккаунт?{' '}
+          Already have an account?{' '}
           <button
             onClick={() => navigate('/login')}
             className="auth-card__link"
             style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
           >
-            Войти
+            Log In
           </button>
         </footer>
       </div>

@@ -47,6 +47,12 @@ function resetPassword(resetToken: string, password: string): Promise<void> {
   return authClient.post<void>('/reset-password', { resetToken, password });
 }
 
+function changeEmail(securityToken: string): Promise<{ message: string }> {
+  return authClient.patch<{ message: string }>('/change-email', {
+    securityToken,
+  });
+}
+
 export const authService = {
   register,
   login,
@@ -55,4 +61,5 @@ export const authService = {
   refresh,
   forgotPassword,
   resetPassword,
+  changeEmail,
 };

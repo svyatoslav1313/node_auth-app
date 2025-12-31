@@ -18,7 +18,7 @@ export const SecurityTab = () => {
       onSubmit={async (e) => {
         e.preventDefault();
         try {
-          await updatePassword(user?.email, password, newPassword);
+          await updatePassword(user?.password, newPassword);
         } catch (error) {
           setErrorMessage(error.response?.data?.message);
         }

@@ -10,6 +10,15 @@ export const Token = client.define('token', {
   resetToken: {
     type: DataTypes.UUID,
   },
+  securityToken: {
+    type: DataTypes.UUID,
+  },
+  oldEmail: {
+    type: DataTypes.STRING,
+  },
+  securityExpiresAt: {
+    type: DataTypes.DATE,
+  },
 });
 
 Token.belongsTo(User);

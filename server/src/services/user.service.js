@@ -51,9 +51,9 @@ async function changePassword(email, newPassword) {
   await User.update({ password: newPassword }, { where: { email } });
 }
 
-async function changeEmail(userId, newEmail) {
+async function changeEmail(userId, newEmail, token) {
   const [_, updatedUser] = await User.update(
-    { email: newEmail },
+    { email: newEmail, activationToken: token },
     { where: { id: userId }, returning: true, plain: true },
   );
 
@@ -81,6 +81,18 @@ async function forgotPassword(user, email) {
   await emailService.sendResetEmail(email, resetToken);
 }
 
+async function securityEmail(
+  userId,
+  securityToken,
+  oldEmail,
+  securityExpiresAt,
+) {
+  await Token.update(
+    { securityToken, oldEmail, securityExpiresAt },
+    { where: { userId } },
+  );
+}
+
 export const userService = {
   normalize,
   findById,
@@ -91,4 +103,5 @@ export const userService = {
   changePassword,
   changeEmail,
   forgotPassword,
+  securityEmail,
 };

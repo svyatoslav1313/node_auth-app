@@ -99,16 +99,15 @@ export const LoginPage = () => {
           </button>
         </form>
 
-        {/* Футер */}
-        <div className="login-card__footer">
-          <span>Еще нет аккаунта?</span>
+        <footer className="login-card__footer">
+          <span>Don't have an account?</span>
           <button
             className="login-card__footer-link"
             onClick={() => navigate('/registration')}
           >
-            Создать профиль
+            Sign Up
           </button>
-        </div>
+        </footer>
       </div>
     </div>
   );

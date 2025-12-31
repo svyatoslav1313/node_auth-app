@@ -44,13 +44,13 @@ export const Header: React.FC = () => {
                 onClick={() => navigate('login')}
                 className="btn-text"
               >
-                Войти
+                Login
               </button>
               <button
                 onClick={() => navigate('registration')}
                 className="btn-primary"
               >
-                Регистрация
+                Sign Up
               </button>
             </div>
           )}

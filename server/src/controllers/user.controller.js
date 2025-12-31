@@ -1,7 +1,9 @@
+import { v4 as uuidv4 } from 'uuid';
 import { ApiError } from '../exceptions/api.error.js';
 import { userService } from '../services/user.service.js';
 import { validateEmail, validatePassword } from '../utils/validation.js';
 import bcrypt from 'bcrypt';
+import { emailService } from '../services/email.service.js';
 
 const getUser = async (req, res) => {
   const { email } = req.body;
@@ -112,7 +114,27 @@ const changeEmail = async (req, res) => {
     throw ApiError.badRequest('Wrong password');
   }
 
-  const updatedUser = await userService.changeEmail(userId, newEmail);
+  const securityToken = uuidv4();
+  const changeToken = uuidv4();
+
+  const EXPIRE_IN_24H = 24 * 60 * 60 * 1000;
+  const securityExpiresAt = new Date(Date.now() + EXPIRE_IN_24H);
+
+  await emailService.sendSecurityEmail(user.email, securityToken);
+  await userService.securityEmail(
+    user.id,
+    securityToken,
+    user.email,
+    securityExpiresAt,
+  );
+
+  await emailService.sendActivationEmail(newEmail, changeToken);
+
+  const updatedUser = await userService.changeEmail(
+    userId,
+    newEmail,
+    changeToken,
+  );
 
   res.status(200);
   res.send({

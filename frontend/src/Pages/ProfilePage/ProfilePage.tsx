@@ -86,7 +86,7 @@ export const ProfilePage: React.FC = () => {
             <div className="modal__actions">
               <button onClick={() => setIsLogoutModalOpen(false)} className="modal__button modal__button--cancel">Cancel</button>
               <button onClick={() => {
-                logout().then(() => navigate('/'))
+                logout().then(() => navigate('/login'))
               }}
                 className="modal__button modal__button--confirm">
                 Log out
