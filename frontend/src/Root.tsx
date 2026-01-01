@@ -15,8 +15,6 @@ export const Root = () => (
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />}>
-        <Route path="login" element={<LoginPage />} />
-        <Route path="registration" element={<RegistrationPage />} />
         <Route path="/activate/:activationToken" element={<ActivationPage />} />
         <Route element={<RequireAuth />}>
           <Route path="profile/:item?" element={<ProfilePage />} />
@@ -24,6 +22,8 @@ export const Root = () => (
         <Route element={<RequireNonAuth />}>
           <Route path="forgot-pass" element={<ForgotPassPage />} />
           <Route path="reset-password/:resetToken" element={<ResetPassPage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="registration" element={<RegistrationPage />} />
         </Route>
         <Route path="change-email/:securityToken" element={<ResetEmailPage />} />
         <Route path="*" element={<NotFoundPage />} />

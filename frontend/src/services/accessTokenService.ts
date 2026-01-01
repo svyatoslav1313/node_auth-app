@@ -1,14 +1,14 @@
 const key = 'accessToken';
 
-function get() {
+function get(): string | null {
   return localStorage.getItem(key);
 }
 
-function save(token) {
+function save(token: string): void {
   return localStorage.setItem(key, token);
 }
 
-function remove() {
+function remove(): void {
   return localStorage.removeItem(key);
 }
 

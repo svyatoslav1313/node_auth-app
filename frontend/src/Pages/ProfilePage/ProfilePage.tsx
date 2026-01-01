@@ -1,14 +1,12 @@
 import React, { useContext, useState, } from 'react';
-import { User, Lock, Mail, ShieldCheck, AlertCircle, LogOut } from 'lucide-react';
+import { User, Lock, Mail, LogOut } from 'lucide-react';
 import './ProfilePage.scss';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ProfilePageMain } from './components/ProfilePageMain';
-import { UserContext } from '../../context/UserContext';
 import { ProfileTab } from './components/ProfileTab';
 import { SecurityTab } from './components/SecurityTab';
 import { EmailTab } from './components/EmailTab';
-import { authService } from '../../services/authService';
 
 type ProfileTab = 'details' | 'security' | 'email';
 

@@ -1,5 +1,5 @@
 import './LoginPage.scss';
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Mail, Lock, ShieldCheck, AlertCircle, Loader2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';

@@ -1,0 +1,26 @@
+{
+  "name": "node_auth-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/svyatoslav1313/node_auth-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/svyatoslav1313/node_auth-app/issues"
+  },
+  "homepage": "https://github.com/svyatoslav1313/node_auth-app#readme",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "server"
+  ]
+}

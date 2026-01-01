@@ -1,10 +1,8 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../../../context/UserContext";
-import { AuthContext } from "../../../context/AuthContext";
 import { AlertCircle } from "lucide-react";
 
 export const SecurityTab = () => {
-  const { user } = useContext(AuthContext);
   const { updatePassword } = useContext(UserContext);
 
   const [password, setPassword] = useState('');
@@ -18,7 +16,7 @@ export const SecurityTab = () => {
       onSubmit={async (e) => {
         e.preventDefault();
         try {
-          await updatePassword(user?.password, newPassword);
+          await updatePassword(password, newPassword);
         } catch (error) {
           setErrorMessage(error.response?.data?.message);
         }

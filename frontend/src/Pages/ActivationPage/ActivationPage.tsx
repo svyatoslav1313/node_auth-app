@@ -9,12 +9,16 @@ export const ActivationPage = () => {
   const { activationToken } = useParams();
 
   useEffect(() => {
+    if (!activationToken) {
+      return;
+    }
+
     activate(activationToken)
-      .then(() => setChecked(true))
       .catch((error) => {
         console.error('Activation failed:', error);
-      });
-  }, []);
+      })
+      .finally(() => setChecked(true));
+  }, [activate, activationToken]);
 
   if (!isChecked) {
     return <Loader />
